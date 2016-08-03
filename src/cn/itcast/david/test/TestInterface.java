@@ -1,21 +1,26 @@
 package cn.itcast.david.test;
 
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.junit.Test;
 
 import cn.com.david.model.Item;
 
 /**
+ * 
  * @author David
  *
  */
@@ -135,6 +140,102 @@ public class TestInterface {
 				});
 		sortByDescription.addAll(parts);
 		System.out.println(sortByDescription);
+		System.out.println(sortByDescription.first());
+		System.out.println(sortByDescription.last());
 	}
 	
+	@Test
+	public void priorityQueueTest(){
+		PriorityQueue<GregorianCalendar> pqCalendars = new PriorityQueue<>();
+		pqCalendars.add(new GregorianCalendar(1906, Calendar.DECEMBER, 9));
+		pqCalendars.add(new GregorianCalendar(1815, Calendar.DECEMBER, 10));
+		pqCalendars.add(new GregorianCalendar(1903, Calendar.DECEMBER, 2));
+		pqCalendars.add(new GregorianCalendar(1910, Calendar.JUNE, 22));
+		System.out.println("Iterationg over elements....");
+		for (GregorianCalendar dateCalendar : pqCalendars) {
+			System.out.println(dateCalendar.get(Calendar.YEAR));
+		}
+		
+		System.out.println("removing elements...");
+		while (!pqCalendars.isEmpty()) {
+			System.out.println(pqCalendars.remove().get(Calendar.YEAR));
+			
+		}
+	}
+	class Employee{
+		private String name;
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public Employee(String name) {
+			super();
+			this.name = name;
+		}
+
+		@Override
+		public String toString() {
+			return "Employee [name=" + name + "]";
+		}
+		
+		
+	}
+	@Test
+	public void mapTest(){
+		/*
+		Set<String> set = new HashSet<>();
+		set.add(null);
+		set.add("s");
+		int count = 0;
+		for (String s : set) {
+			count++;
+		}
+		System.out.println(count);
+		*/
+		Map<String, Employee> staff = new HashMap<String, TestInterface.Employee>();
+		staff.put("144-25-5464", new Employee("Amy Lee"));
+		staff.put("567-24-2546", new Employee("Harry Hacker"));
+		staff.put("157-62-7935", new Employee("Gary Cooper"));
+		staff.put("456-62-5527", new Employee("Francesca Cruz"));
+		
+		System.out.println(staff);
+		
+		staff.remove("567-24-2546");
+		staff.put("456-62-5527", new Employee("Francesca Miller"));
+		System.out.println(staff.get("157-62-7935"));
+		staff.put(null, null);
+		staff.put(null, null);
+		for (Map.Entry<String, Employee> entry:staff.entrySet()) {
+			String key = entry.getKey();
+			Employee value = entry.getValue();
+			System.out.println("key = " + key +", value = " + value);
+		}
+
+		
+	}
+	enum Weekday{MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY};
+	@Test
+	public void enumTest(){
+		EnumSet<Weekday> always = EnumSet.allOf(Weekday.class);
+		EnumSet<Weekday> never = EnumSet.noneOf(Weekday.class);
+		EnumSet<Weekday> workday = EnumSet.range(Weekday.MONDAY, Weekday.FRIDAY);
+		EnumSet<Weekday> mwf = EnumSet.of(Weekday.MONDAY,Weekday.WEDNESDAY,Weekday.FRIDAY);
+		System.out.println(always);
+		System.out.println(never);
+		System.out.println(workday);
+		System.out.println(mwf);
+	}
+	
+	@Test
+	public void test(){
+//		AbstractSet<String> abstractSet = new HashSet<>();
+//		abstractSet.add("hello");
+//		abstractSet.add("world");
+//		System.out.println(abstractSet);
+	}
 }
